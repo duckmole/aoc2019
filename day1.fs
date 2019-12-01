@@ -1,10 +1,23 @@
 : consumption
     3 / 2 - ;
 
+: full_consumption
+    0 swap
+    begin
+        consumption
+        dup rot + swap
+        dup
+        9 <
+    until
+    drop
+;
+
 : add_fuel
-    swap consumption + ;
+    swap full_consumption + ;
 
 : total
-    100 0 ?DO add_fuel LOOP ;
-
-0 total
+    0
+    begin
+        add_fuel
+        depth 1 <=
+    until ;
